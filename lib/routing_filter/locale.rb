@@ -32,39 +32,47 @@ module RoutingFilter
     end
 
     def around_generate(*args, &block)
-      locale = args.extract_options!.delete(:locale) # extract the passed :locale option
-      locale = I18n.locale if locale.nil?            # default to I18n.locale when locale is nil (could also be false)
-      locale = nil unless valid_locale?(locale)      # reset to no locale when locale is not valid
-
-      returning yield do |result|
-        if locale && prepend_locale?(locale)
-          url = result.is_a?(Array) ? result.first : result
-          prepend_locale!(url, locale)
+      options = args.extract_options!
+      if  skip_prepend_locale? options
+        locale = options.delete(:locale)               # extract the passed :locale option
+        locale = I18n.locale if locale.nil?            # default to I18n.locale when locale is nil (could also be false)
+        locale = nil unless valid_locale?(locale)     # reset to no locale when locale is not valid
+        returning yield do |result|
+          if locale && prepend_locale?(locale)
+            url = result.is_a?(Array) ? result.first : result
+            prepend_locale!(url, locale)
+          end
         end
+      else
+        yield
       end
     end
 
     protected
 
-      def extract_locale!(path)
-        path.sub! self.class.locales_pattern, ''
-        $1
-      end
+    def extract_locale!(path)
+      path.sub! self.class.locales_pattern, ''
+      $1
+    end
 
-      def prepend_locale?(locale)
-        self.class.include_default_locale? || !default_locale?(locale)
-      end
+    def prepend_locale?(locale)
+      self.class.include_default_locale? || !default_locale?(locale)
+    end
 
-      def valid_locale?(locale)
-        locale && self.class.locales.include?(locale.to_sym)
-      end
+    def skip_prepend_locale?(options)
+      !options[:scip_locale_filter]
+    end
 
-      def default_locale?(locale)
-        locale && locale.to_sym == I18n.default_locale.to_sym
-      end
+    def valid_locale?(locale)
+      locale && self.class.locales.include?(locale.to_sym)
+    end
 
-      def prepend_locale!(url, locale)
-        url.sub!(%r(^(http.?://[^/]*)?(.*))) { "#{$1}/#{locale}#{$2}" }
-      end
+    def default_locale?(locale)
+      locale && locale.to_sym == I18n.default_locale.to_sym
+    end
+
+    def prepend_locale!(url, locale)
+      url.sub!(%r(^(http.?://[^/]*)?(.*))) { "#{$1}/#{locale}#{$2}" }
+    end
   end
 end
