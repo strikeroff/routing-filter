@@ -120,14 +120,18 @@ less intrusive and pricey than others are.
 
 # Difference from origin
 
-1. Locale filter now has option :scip_locale_filter
-    In you routes rb you can 
+1. Locale filter now has option :scip_locale_filter.
+    In you routes.rb you can write this
+    
     map.change_locale "main/change_locale/:new_locale", :controller=>"main", :action=>"change_locale", :scip_locale_filter=>true
-    And locale filter wouldn't add locale to url while generate
+
+    And locale filter wouldn't add locale to url while generate.
 	
-2. extract_locale! and prepend_locale! methods become class methods aka static. So you can use them outside of gem
+2. extract_locale! and prepend_locale! methods become class methods aka static. So you can use them outside of gem.
+    
 	Usecase:
-	For example   to create  on page language changer without  requests to served. You need only change locale in url
+
+	For example,   to create  on page language changer without  requests to server. You need only change locale in url.
 	
 	Example code:
 			Current locale - :ru,but you need to have a link  with locale = :en. 
