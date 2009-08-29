@@ -117,6 +117,30 @@ So, even though the plugin itself is a blatant monkey-patch to one of the
 most complex area of Rails internals, this solution seems to be effectively
 less intrusive and pricey than others are.
 
+
+# Difference from origin
+
+1. Locale filter now has option :scip_locale_filter
+    In you routes rb you can 
+    map.change_locale "main/change_locale/:new_locale", :controller=>"main", :action=>"change_locale", :scip_locale_filter=>true
+    And locale filter wouldn't add locale to url while generate
+	
+2. extract_locale! and prepend_locale! methods become class methods aka static. So you can use them outside of gem
+	Usecase:
+	For example   to create  on page language changer without  requests to served. You need only change locale in url
+	
+	Example code:
+			Current locale - :ru,but you need to have a link  with locale = :en. 
+			
+			link_to("EN", url_with_locale(request.request_uri.dup, :en))
+			
+			def url_with_locale(url,locale)
+				RoutingFilter::Locale.extract_locale! url        
+				RoutingFilter::Locale.prepend_locale! url, locale
+			end
+
+ 
+
 ## Etc
 
 Authors: [Sven Fuchs](http://www.artweb-design.de) <svenfuchs at artweb-design dot de>  
