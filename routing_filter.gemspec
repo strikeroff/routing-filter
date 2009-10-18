@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.description = %q{routing_filter}
   s.email = %q{strikeroff@gmail.com}
   s.extra_rdoc_files = ["lib/routing_filter/base.rb", "lib/routing_filter/force_extension.rb", "lib/routing_filter/locale.rb", "lib/routing_filter/pagination.rb", "lib/routing_filter.rb"]
-  s.files = ["init.rb", "lib/routing_filter/base.rb", "lib/routing_filter/force_extension.rb", "lib/routing_filter/locale.rb", "lib/routing_filter/pagination.rb", "lib/routing_filter.rb", "Manifest", "MIT-LICENSE", "Rakefile", "README.markdown", "routing-filter.gemspec", "routing_filter.gemspec", "spec/force_extension_spec.rb", "spec/generation_spec.rb", "spec/pagination_extension_spec.rb", "spec/recognition_spec.rb", "spec/routing_filter_spec.rb", "spec/spec.opts", "spec/spec_helper.rb", "VERSION"]
+  s.files = ["init.rb", "lib/routing_filter/base.rb", "lib/routing_filter/force_extension.rb", "lib/routing_filter/locale.rb", "lib/routing_filter/pagination.rb", "lib/routing_filter.rb", "MIT-LICENSE", "Rakefile", "README.markdown", "routing-filter.gemspec", "spec/force_extension_spec.rb", "spec/generation_spec.rb", "spec/pagination_extension_spec.rb", "spec/recognition_spec.rb", "spec/routing_filter_spec.rb", "spec/spec.opts", "spec/spec_helper.rb", "VERSION", "Manifest", "routing_filter.gemspec"]
   s.homepage = %q{http://7studio.ru}
   s.rdoc_options = ["--line-numbers", "--inline-source", "--title", "Routing_filter", "--main", "README.markdown", "-c utf-8"]
   s.require_paths = ["lib"]
